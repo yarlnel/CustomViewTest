@@ -68,6 +68,14 @@ class FluppyBirdRenderingThread(
        this@FluppyBirdRenderingThread.isRunning = isRunning
     }
 
+    init {
+        pipeController.afterPipeReset {
+            if (bird.isAlive) {
+                score++
+            }
+        }
+    }
+
     override fun run() {
         startedTime = time()
         while (isRunning) {
@@ -75,13 +83,6 @@ class FluppyBirdRenderingThread(
             if (elapsedTime < Constants.RedrawTime) continue
 
             val millisFromStart = time() - startedTime
-            if (millisFromStart % 120 == 0L && millisFromStart >= 80) {
-                pipeController.reset()
-                if(bird.isAlive) {
-                    score++
-                }
-            }
-
             if (millisFromStart >= 130 && millisFromStart % 2 == 0L) {
                 dy += 3
             }
@@ -100,27 +101,17 @@ class FluppyBirdRenderingThread(
                 bird.y.toFloat() + birdBitmap.height
             )
             val topPipeRect = RectF(
-                pipeController.x.toFloat(),
-                pipeController.topY.toFloat(),
-                pipeController.x.toFloat() + topPipeBitmap.width,
-                pipeController.topY.toFloat() + topPipeBitmap.height
+                pipeController.x,
+                pipeController.topY,
+                pipeController.x + topPipeBitmap.width,
+                pipeController.topY + topPipeBitmap.height
             )
             val bottomPipeRect = RectF(
-                pipeController.x.toFloat(),
-                pipeController.bottomY.toFloat(),
-                pipeController.x.toFloat() + bottomPipeBitmap.width,
+                pipeController.x,
+                pipeController.bottomY,
+                pipeController.x + bottomPipeBitmap.width,
                 height.toFloat()
             )
-
-//            val xDist: Int = bottomPipeRect.left.toInt() - bird.x
-//            val bottomYDist: Int = bottomPipeRect.top.toInt() - bird.y - birdBitmap.height
-//            val topYDist = bird.y - topPipeRect.bottom
-//
-//            val isToLow = -bird.y < 450 && dy > -23
-//            val isAvoidPipe = bottomYDist <= 60 && topYDist > 0 && dy >= 0
-//            if (isToLow || isAvoidPipe) {
-//                dy -= 25
-//            }
 
             val isStrikeTopPipe = birdRect.intersect(topPipeRect)
             val isStrikeBottomPipe = birdRect.intersect(bottomPipeRect)
