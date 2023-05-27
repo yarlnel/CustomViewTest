@@ -7,6 +7,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.customviewtest.R
 import com.example.customviewtest.databinding.FragmentHomeBinding
 import com.example.customviewtest.fragments.drawer.DrawerFragment
+import com.example.customviewtest.fragments.fluppy.FluppyBirdFragment
 import com.example.customviewtest.fragments.stars.StartsFragment
 import com.example.customviewtest.fragments.surface_animations.SurfaceAnimationsFragment
 import com.example.customviewtest.utils.navigateTo
@@ -29,6 +30,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             btnSurfaceAnimations.setOnClickListener {
                 navigateTo(SurfaceAnimationsFragment())
+            }
+
+            btnFluppyBird.setOnClickListener {
+                navigateTo(FluppyBirdFragment())
             }
         }
     }

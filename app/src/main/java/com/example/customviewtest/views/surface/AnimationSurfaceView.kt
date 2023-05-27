@@ -12,16 +12,14 @@ import kotlin.math.min
 
 class AnimationSurfaceView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
 
-    lateinit var drawingThread: DrawingThread
+    private val drawingThread = DrawingThread(holder, context.resources)
 
     init {
         holder.addCallback(this@AnimationSurfaceView)
     }
 
-
     // called when surface became visible
     override fun surfaceCreated(p0: SurfaceHolder) {
-        drawingThread = DrawingThread(holder, context.resources)
         drawingThread.setRunning(true)
         drawingThread.start()
     }

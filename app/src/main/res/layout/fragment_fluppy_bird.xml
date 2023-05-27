@@ -3,7 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.customviewtest.views.surface.stars.StarsSurfaceView
+<!--    <com.example.customviewtest.views.surface.stars.StarsSurfaceView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+
+    <com.example.customviewtest.views.surface.fluppy.FluppyBirdGameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </FrameLayout>
